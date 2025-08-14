@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Portfólio de Maquiagem</title>
+ 
+<!-- Tipografia -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+ 
+<style>
+/* ====================================================================== */
+/*                            SISTEMA DE DESIGN                            */
+/* ====================================================================== */
+:root{
+  /* Paleta */
+  --rose-50:#fff7fa;
+  --rose-100:#ffedf4;
+  --rose-200:#ffd9e7;
+  --rose-300:#ffbcd6;
+  --rose-400:#ff99c1;
+  --rose-500:#ff006a;      /* cor principal original */
+  --rose-600:#c4598a;
+  --rose-700:#a14374;
+  --text:#4a2c2a;          /* texto original */
+  --ink:#2e1a19;
+ 
+  /* Acentos dinâmicos */
+  --accent-a:#ff7ccf;
+  --accent-b:#ffa8d8;
+  --accent-c:#ffd3ec;
+ 
+  /* Fundo */
+  --bg: var(--rose-50);
+ 
+  /* Glassmorphism */
+  --glass: rgba(255,255,255,.35);
+  --glass-strong: rgba(255,255,255,.55);
+  --glass-dark: rgba(255,255,255,.18);
+  --blur: blur(16px);
+ 
+  /* Bordas e sombras */
+  --line: rgba(255,255,255,.6);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
+  --shadow-md: 0 12px 30px rgba(0,0,0,.12);
+  --shadow-lg: 0 18px 50px rgba(0,0,0,.18);
+ 
+  /* Raio e espaçamento */
+  --r-lg: 28px;
+  --r-md: 18px;
+  --r-sm: 12px;
+  --space: clamp(14px, 3.5vw, 24px);
+ 
+  /* Transições */
+  --t-fast: .18s ease;
+  --t-med: .35s ease;
+  --t-slow: .6s cubic-bezier(.2,.7,.2,1);
+ 
+  /* Gradiente marca (mantendo essência do original) */
+  --grad: linear-gradient(135deg, #d86f9b 0%, #ffb3c7 50%, #ffd3e8 100%);
+}
+ 
+/* Reset fino */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: 'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background: var(--bg);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+ 
+/* ====================================================================== */
+/*                         CAMADAS DE FUNDO INOVADORAS                     */
+/* ====================================================================== */
+ 
+/* gradiente animado de base */
+.bg-gradient{
+  position: fixed; inset: -20vmax -20vmax 0 -20vmax; z-index:-4;
+  background:
+    radial-gradient(60vmax 45vmax at 10% -10%, rgba(216,111,155,.18), transparent 60%),
+    radial-gradient(70vmax 50vmax at 110% 110%, rgba(255,179,199,.20), transparent 60%),
+    radial-gradient(50vmax 35vmax at 40% 120%, rgba(255,211,232,.30), transparent 70%),
+    var(--rose-50);
+  animation: floatBg 22s ease-in-out infinite alternate;
+}
+@keyframes floatBg{
+  0%{transform: translateY(0)}
+  100%{transform: translateY(-2.5vmax)}
+}
+ 
+/* blobs translúcidos com aura */
+.blobs{
+  position: fixed; inset:0; pointer-events:none; z-index:-3;
+  filter: blur(30px) saturate(1.1);
+}
+.blob{
+  position:absolute; width:32vmax; height:32vmax; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, var(--accent-b), transparent 55%),
+              radial-gradient(circle at 70% 70%, var(--accent-c), transparent 50%),
+              radial-gradient(circle at 60% 40%, var(--accent-a), transparent 60%);
+  opacity:.35; mix-blend-mode:multiply;
+  animation: blobFloat 18s ease-in-out infinite;
+}
+.blob.b2{ left:60%; top:5%; animation-duration:26s; width:40vmax; height:40vmax; opacity:.28}
+.blob.b3{ left:-10%; bottom:-10%; animation-duration:22s; width:36vmax; height:36vmax; opacity:.25}
+@keyframes blobFloat{
+  0%{ transform: translate(0,0) scale(1) rotate(0) }
+  50%{ transform: translate(2vmax,-1vmax) scale(1.08) rotate(7deg) }
+  100%{ transform: translate(-1vmax,2vmax) scale(1.02) rotate(-5deg) }
+}
+ 
+/* ruído cinematográfico sutil */
+.noise{
+  position:fixed; inset:-50% -50% 0 -50%; z-index:-2; opacity:.05; pointer-events:none;
+  background-image:url('data:image/svg+xml;utf8')
+  <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(%23n)"/></svg>');
+  background-size: 320px 320px;
+  mix-blend-mode:multiply;
+  animation: noiseShift 12s steps(2) infinite;
+}
+@keyframes noiseShift{ to{ transform: translate3d(0,0,0) rotate(0.01turn)} }
+ 
+.particles{ position:fixed; inset:0; pointer-events:none; z-index:-1; }
+ 
+.cursor-dot, .cursor-trail{
+  position: fixed; top:0; left:0; width:10px; height:10px; border-radius:50%;
+  pointer-events:none; z-index:9999; mix-blend-mode:plus-lighter;
+  transform: translate(-50%, -50%); opacity:.0;
+}
+.cursor-dot{ background: radial-gradient(circle, #fff, rgba(255,255,255,.2)); width:8px; height:8px; }
+.cursor-trail{ width:48px; height:48px;
+  background: radial-gradient(circle, rgba(255,182,218,.18), rgba(255,255,255,0) 60%);
+  transition: transform .08s linear; filter: blur(6px);
+}
+ 
+/* ====================================================================== */
+/*                                 HEADER                                  */
+/* ====================================================================== */
+ 
+header{
+  text-align:center;
+  padding: clamp(28px, 8vw, 64px) 20px 24px;
+  position:relative;
+  color:#fff;
+}
+ 
+/* faixa de vidro */
+.header-glass{
+  position:absolute; inset:0 auto auto 50%; transform:translateX(-50%);
+  width:min(960px, 94%); height:100%;
+  border-radius:0 0 var(--r-lg) var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.10) 40%, rgba(255,255,255,.0));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 2px solid rgba(255,255,255,.55);
+  box-shadow: var(--shadow-md);
+  z-index:-1;
+}
+ 
+/* moldura luminosa atrás da foto */
+.header-aura{
+  position:absolute; left:50%; top: calc(16px + env(safe-area-inset-top));
+  transform: translateX(-50%); width:210px; height:210px; border-radius:50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,179,199,.9), rgba(216,111,155,.35) 35%, transparent 60%);
+  filter: blur(14px); opacity:.7; z-index:-1;
+}
+ 
+/* avatar */
+header img{
+  width: 160px; height:160px; border-radius:50%;
+  object-fit: cover;
+  border: 5px solid rgba(255,255,255,.95);
+  box-shadow: 0 12px 38px rgba(0,0,0,.18), 0 0 0 10px rgba(255,255,255,.25);
+  animation: popIn .8s var(--t-slow) both;
+}
+@keyframes popIn{
+  from{ transform: translateY(-12px) scale(.94); opacity:0 }
+  to{ transform: translateY(0) scale(1); opacity:1 }
+}
+ 
+/* Título & subtítulo */
+header h1{
+  margin: 14px 0 6px;
+  font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+  font-weight:800;
+  letter-spacing:.2px;
+  background: linear-gradient(90deg, #fff, #fff 50%, #ffe6f2);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+header p{
+  margin:0 0 10px; font-size:1rem; font-weight:400; color:#fff;
+  text-shadow: 0 1px 6px rgba(0,0,0,.18);
+}
+ 
+/* descrição */
+.descricao{
+  margin: 10px auto 0; padding: 0 18px;
+  max-width: 680px; line-height: 1.7; font-size: .98rem;
+  color:#fff; text-shadow: 0 1px 6px rgba(0,0,0,.2);
+}
+ 
+/* ====================================================================== */
+/*                               HAMBÚRGUER                                */
+/* ====================================================================== */
+ 
+.hamburger{
+  position:absolute; top: calc(16px + env(safe-area-inset-top)); right: 16px;
+  display:flex; flex-direction:column; gap:6px; cursor:pointer; z-index:1001;
+  padding:10px; border-radius:12px; background: rgba(255,255,255,.18);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.35);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.hamburger:active{ transform: scale(.98) }
+.hamburger span{
+  width: 26px; height:3px; background:#fff; border-radius: 3px;
+  transition: transform var(--t-med), opacity var(--t-med);
+}
+.hamburger.open span:nth-child(1){ transform: rotate(45deg) translate(6px,6px) }
+.hamburger.open span:nth-child(2){ opacity:0 }
+.hamburger.open span:nth-child(3){ transform: rotate(-45deg) translate(6px,-6px) }
+ 
+/* ====================================================================== */
+/*                               MENU MOBILE                               */
+/* ====================================================================== */
+ 
+.menu-mobile{
+  position:fixed; top:0; right:0; height:100dvh; width:80%; max-width:380px;
+  background: rgba(255,255,255,.78);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  transform: translateX(100%);
+  transition: transform var(--t-slow);
+  box-shadow: -18px 0 40px rgba(0,0,0,.16);
+  z-index:1000;
+  border-left: 1px solid rgba(255,255,255,.65);
+}
+.menu-mobile.active{ transform: translateX(0) }
+.menu-mobile::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,0));
+  pointer-events:none;
+}
+.menu-mobile a{
+  display:block; padding: 16px 22px; text-decoration:none; font-size:1.08rem; font-weight:600;
+  color: var(--rose-600);
+  border-bottom: 1px dashed rgba(0,0,0,.06);
+  transition: padding-left var(--t-fast), background var(--t-fast), color var(--t-fast);
+}
+.menu-mobile a:hover{ padding-left:28px; background: rgba(255,255,255,.6); color: var(--rose-700) }
+ 
+/* overlay */
+.menu-overlay{
+  position:fixed; inset:0; background: rgba(0,0,0,.28);
+  opacity:0; pointer-events:none; transition: opacity var(--t-med);
+  z-index:999;
+}
+.menu-overlay.active{ opacity:1; pointer-events:auto }
+ 
+/* ====================================================================== */
+/*                                  SLIDER                                 */
+/* ====================================================================== */
+ 
+.slider{
+  position:relative; overflow:hidden; margin: 24px auto; border-radius: 20px;
+  max-width: min(980px, 94%); box-shadow: var(--shadow-md);
+  background: rgba(255,255,255,.65); backdrop-filter: blur(8px);
+}
+.slides{ display:flex; transition: transform var(--t-slow); will-change: transform }
+.slides img{
+  width:100%; flex-shrink:0; border-radius: 20px;
+  transform: scale(1.02); /* leve zoom */
+  filter: saturate(1.02);
+}
+ 
+/* progress bar */
+.slider .progress{
+  position:absolute; left:10px; right:10px; bottom:10px; height:4px; border-radius:999px;
+  background: rgba(255,255,255,.5); overflow:hidden;
+}
+.slider .progress .bar{
+  height:100%; width:0%; background: linear-gradient(90deg, var(--accent-a), var(--accent-b), var(--accent-c));
+  border-radius:inherit; transition: width .2s linear;
+}
+ 
+/* indicadores */
+.indicators{
+  position:absolute; bottom: 18px; left:50%; transform: translateX(-50%);
+  display:flex; gap:8px; z-index:2;
+}
+.indicators span{
+  width:9px; height:9px; border-radius:50%; cursor:pointer;
+  background: rgba(255,255,255,.9); box-shadow: 0 0 0 4px rgba(255,255,255,.28);
+  transition: transform var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+}
+.indicators span.active{
+  background: #fff;
+  box-shadow: 0 0 0 6px rgba(255,255,255,.42), 0 0 12px rgba(255,182,218,.8);
+  transform: scale(1.15);
+}
+ 
+/* setas (mobile-friendly, invisíveis mas com hit-area) */
+.arrow{
+  position:absolute; top:0; bottom:0; width:24%; z-index:2; cursor: pointer;
+}
+.arrow.left{ left:0 }
+.arrow.right{ right:0 }
+ 
+/* ====================================================================== */
+/*                              BOTÃO WHATSAPP                             */
+/* ====================================================================== */
+ 
+.whatsapp-btn{
+  position: fixed; bottom: max(18px, env(safe-area-inset-bottom)); right: 18px;
+  display:flex; align-items:center; gap:10px; padding: 12px 18px;
+  border-radius: 50px; text-decoration:none; font-weight:800;
+  background: linear-gradient(135deg, #25D366, #63e29a);
+  color:#081b10; box-shadow: 0 10px 28px rgba(37,211,102,.38), inset 0 1px 0 rgba(255,255,255,.6);
+  z-index: 998;
+  animation: pulse 3s ease infinite;
+}
+.whatsapp-btn:active{ transform: translateY(1px) scale(.99) }
+@keyframes pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(37,211,102,.4) }
+  70%{ box-shadow: 0 0 0 16px rgba(37,211,102,0) }
+  100%{ box-shadow: 0 0 0 0 rgba(37,211,102,0) }
+}
+ 
+/* ====================================================================== */
+/*                                   FOOTER                                */
+/* ====================================================================== */
+ 
+footer{
+  margin: 42px auto 80px; max-width: min(980px, 94%); text-align:center;
+  background: rgba(255,255,255,.75); backdrop-filter: blur(10px);
+  padding: 22px; border-radius: 18px; border:1px solid rgba(255,255,255,.65);
+  box-shadow: var(--shadow-sm);
+}
+footer p{ margin: 6px 0; font-size:.98rem; color:var(--ink) }
+footer strong{ color: var(--rose-700) }
+ 
+/* ====================================================================== */
+/*                             MICROINTERAÇÕES                             */
+/* ====================================================================== */
+ 
+.reveal{ opacity:0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease }
+.reveal.in{ opacity:1; transform:none }
+ 
+.touch-bounce:active{ transform: scale(.98) }
+ 
+.glow-border{
+  position:relative;
+}
+.glow-border::after{
+  content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:-1;
+  background: conic-gradient(from 0turn, var(--accent-a), var(--accent-b), var(--accent-c), var(--accent-a));
+  filter: blur(12px); opacity:.45; animation: spin 8s linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(1turn) } }
+ 
+/* ====================================================================== */
+/*                               ACESSIBILIDADE                            */
+/* ====================================================================== */
+:focus-visible{
+  outline: 3px solid rgba(216,111,155,.65);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+ 
+/* ====================================================================== */
+/*                            AJUSTES RESPONSIVOS                          */
+/* ====================================================================== */
+@media (min-width: 800px){
+  .slider{ border-radius: 24px }
+  .slides img{ border-radius: 24px }
+}
+ 
+/* ====================================================================== */
+/*                           PLACEHOLDER DE ÍCONES                         */
+/* ====================================================================== */
+/* (Somente decorativos via CSS) */
+.icon-wa{
+  width:18px; height:18px; border-radius:4px; background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.35) 60%), #0b0b0b;
+  display:inline-block; box-shadow: inset 0 -2px 0 rgba(0,0,0,.25);
+}
+ 
+/* ===================== SUAS FORÇAS DE COR PRETA EXISTENTES ===================== */
+body {
+  color: black;
+}
+ 
+/* ===================== OVERRIDES QUE VOCÊ PEDIU (RESPONSIVIDADE + HAMBÚRGUER PRETO) ===================== */
+ 
+/* bloqueia rolagem lateral e “arrastar” a página para os lados */
+html, body { max-width:100%; overflow-x:hidden !important; overscroll-behavior-x: none; }
+ 
+/* garante que mídias não excedam a largura da viewport */
+img, video, canvas { max-width: 100%; height: auto; display: block; }
+ 
+/* slider não vaza no eixo X e o gesto horizontal não move a página */
+.slider, .slides { max-width:100%; touch-action: pan-y; }
+.slides img { flex:0 0 100%; width:80%; }
+ 
+/* camadas de fundo não causam overflow em alguns navegadores móveis */
+.bg-gradient, .blobs, .noise, #particles { contain: paint; }
+ 
+/* texto preto no topo onde havia gradiente e sombras brancas */
+header h1{
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: #000 !important;
+  -webkit-text-fill-color:#000 !important;
+  text-shadow: none !important;
+}
+header p, .descricao, footer p, footer strong{
+  color:#000 !important;
+  text-shadow:none !important;
+}
+ 
+/* hambúrguer preto */
+.hamburger span{ background:#000 !important; }
+ 
+</style>
+</head>
+<body>
+ 
+ 
+<!-- Camadas de fundo -->
+<div class="bg-gradient" aria-hidden="true"></div>
+<div class="blobs" aria-hidden="true">
+  <div class="blob b1" style="left:-6%; top:4%"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+<canvas class="particles" id="particles" aria-hidden="true"></canvas>
+<div class="noise" aria-hidden="true"></div>
+ 
+<!-- Cursor dinâmico (invisível no mobile, mas ativo) -->
+<div class="cursor-trail" id="cursorTrail"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+ 
+<!-- =============================== HEADER =============================== -->
+<header id="sobre" class="reveal glow-border">
+  <div class="header-glass" aria-hidden="true"></div>
+  <div class="header-aura" aria-hidden="true"></div>
+ 
+  <!-- HAMBÚRGUER (mantido) -->
+  <div class="hamburger touch-bounce" id="hamburger" aria-label="Abrir menu" role="button" tabindex="0" aria-expanded="false" aria-controls="menuMobile">
+    <span></span><span></span><span></span>
+  </div>
+ 
+  <!-- Conteúdo original preservado -->
+  <img src="C:\Users\aluno\Downloads\arquivo\aa.jpeg" alt="Foto da maquiadora">
+  <h1>Pollyana Torres</h1>
+  <p>Maquiadora Profissional</p>
+  <div class="descricao">
+    Sou a Pollyana Torres, trabalho na área da beleza há 6 anos realçando a beleza natural que já existe em cada cliente 🩵.
+  </div>
+</header>
+ 
+<!-- =============================== MENU ================================ -->
+<nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+  <a class="touch-bounce" href="#sobre">Sobre Mim</a>
+  <a class="touch-bounce" href="#trabalhos">Trabalhos</a>
+  <a class="touch-bounce" href="#contato">Contato</a>
+  <a class="touch-bounce" href="https://wa.me/14998538205" target="_blank" rel="noopener">💬 WhatsApp</a>
+</nav>
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+ 
+<!-- =============================== SLIDER ============================== -->
+<section class="slider reveal" id="trabalhos" aria-roledescription="carousel">
+  <div class="arrow left" id="prev" aria-label="Anterior"></div>
+  <div class="arrow right" id="next" aria-label="Próximo"></div>
+ 
+  <div class="slides" id="slides">
+    <!-- Imagens originais preservadas -->
+    <img src="C:\Users\aluno\Downloads\arquivo\foto1.jpeg" alt="Maquiagem 1">
+    <img src="C:\Users\aluno\Downloads\arquivo\foto2.jpeg" alt="Maquiagem 2">
+    <img src="C:\Users\aluno\Downloads\arquivo\foto3.jpeg" alt="Maquiagem 3">
+    <img src="C:\Users\aluno\Downloads\arquivo\foto4.jpeg" alt="Maquiagem 4">
+    <img src="C:\Users\aluno\Downloads\arquivo\foto5.jpeg" alt="Maquiagem 5">
+  </div>
+ 
+  <!-- Indicadores e progress bar -->
+  <div class="indicators" id="indicators" aria-hidden="false" aria-label="Indicadores"></div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="progressBar"></div></div>
+</section>
+ 
+<!-- ============================== WHATSAPP ============================= -->
+<a href="https://wa.me/14998538205" class="whatsapp-btn touch-bounce" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
+  💬 WhatsApp
+</a>
+ 
+<!-- ================================ FOOTER ============================ -->
+<footer class="reveal" id="contato">
+  <p><strong>Telefone:</strong> (14) 99853-8205</p>
+  <p><strong>Endereço:</strong> Baltazar Rodrigues 3-76 - Bauru - SP</p>
+</footer>
+ 
+<script>
+/* ====================================================================== */
+/*                                UTIL GERAL                               */
+/* ====================================================================== */
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+ 
+/* ====================================================================== */
+/*                                  MENU                                   */
+/* ====================================================================== */
+const hamburger = document.getElementById('hamburger');
+const menuMobile = document.getElementById('menuMobile');
+const menuOverlay = document.getElementById('menuOverlay');
+ 
+function closeMenu(){
+  menuMobile.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded','false');
+}
+function toggleMenu(){
+  const open = !menuMobile.classList.contains('active');
+  menuMobile.classList.toggle('active', open);
+  menuOverlay.classList.toggle('active', open);
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+}
+ 
+hamburger.addEventListener('click', toggleMenu);
+hamburger.addEventListener('keyup', e=>{ if(e.key==='Enter'||e.key===' ') toggleMenu() });
+menuOverlay.addEventListener('click', closeMenu);
+menuMobile.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMenu));
+ 
+/* ====================================================================== */
+/*                                 SLIDER                                  */
+/* ====================================================================== */
+const slides = document.getElementById('slides');
+const imgs = Array.from(slides.querySelectorAll('img'));
+const indicators = document.getElementById('indicators');
+const bar = document.getElementById('progressBar');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+ 
+let index = 0;
+let autoTimer = null;
+let progressTimer = null;
+const DURATION = 3500;
+ 
+function go(i){
+  index = (i + imgs.length) % imgs.length;
+  slides.style.transform = `translateX(${-index * 100}%)`;
+  document.querySelectorAll('.indicators span').forEach((dot, idx)=> dot.classList.toggle('active', idx===index));
+  resetProgress();
+}
+ 
+function nextSlide(){ go(index+1) }
+function prevSlide(){ go(index-1) }
+ 
+function startAuto(){
+  stopAuto();
+  autoTimer = setInterval(nextSlide, DURATION);
+  resetProgress();
+}
+function stopAuto(){
+  clearInterval(autoTimer); autoTimer = null;
+  clearInterval(progressTimer); progressTimer = null;
+  bar.style.width = '0%';
+}
+function resetProgress(){
+  clearInterval(progressTimer);
+  bar.style.width='0%';
+  const start = Date.now();
+  progressTimer = setInterval(()=>{
+    const p = Math.min(1, (Date.now() - start)/DURATION);
+    bar.style.width = (p*100)+'%';
+    if(p>=1) clearInterval(progressTimer);
+  }, 16);
+}
+ 
+// Indicadores
+imgs.forEach((_,i)=>{
+  const dot = document.createElement('span');
+  dot.addEventListener('click', ()=>{ go(i); startAuto(); });
+  indicators.appendChild(dot);
+});
+go(0); startAuto();
+ 
+// Touch drag
+let startX=0, dragging=false;
+slides.addEventListener('touchstart', e=>{ stopAuto(); dragging=true; startX=e.touches[0].clientX }, {passive:true});
+slides.addEventListener('touchmove', e=>{
+  if(!dragging) return;
+  const dx = e.touches[0].clientX - startX;
+  slides.style.transform = `translateX(${(-index*100)+(dx/window.innerWidth*100)}%)`;
+}, {passive:true});
+slides.addEventListener('touchend', e=>{
+  if(!dragging) return;
+  const dx = e.changedTouches[0].clientX - startX;
+  if(dx < -40) nextSlide();
+  else if(dx > 40) prevSlide();
+  else go(index);
+  dragging=false; startAuto();
+});
+ 
+// Click áreas
+prev.addEventListener('click', ()=>{ stopAuto(); prevSlide(); startAuto(); });
+next.addEventListener('click', ()=>{ stopAuto(); nextSlide(); startAuto(); });
+ 
+// Teclado (desktop)
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'){ stopAuto(); nextSlide(); startAuto(); }
+  if(e.key==='ArrowLeft'){ stopAuto(); prevSlide(); startAuto(); }
+});
+ 
+/* ====================================================================== */
+/*                             SCROLL REVEAL                               */
+/* ====================================================================== */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add('in');
+  });
+}, {threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=> observer.observe(el));
+ 
+/* ====================================================================== */
+/*                              PARTÍCULAS                                 */
+/* ====================================================================== */
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d', { alpha: true });
+let W,H, DPR = Math.min(2, window.devicePixelRatio || 1);
+ 
+function resize(){
+  W = canvas.width = Math.floor(innerWidth * DPR);
+  H = canvas.height = Math.floor(innerHeight * DPR);
+  canvas.style.width = innerWidth+'px';
+  canvas.style.height = innerHeight+'px';
+}
+resize(); addEventListener('resize', resize);
+ 
+const PARTICLE_COUNT = 48;
+const particles = Array.from({length: PARTICLE_COUNT}, (_,i)=>({
+  x: Math.random()*W,
+  y: Math.random()*H,
+  r: Math.random()*2 + 0.6,
+  a: Math.random()*Math.PI*2,
+  s: 0.3 + Math.random()*0.8,
+  hue: 320 + Math.random()*40
+}));
+ 
+function drawParticles(){
+  ctx.clearRect(0,0,W,H);
+  for(const p of particles){
+    p.a += 0.002 + p.s*0.003;
+    p.x += Math.cos(p.a)*p.s;
+    p.y += Math.sin(p.a)*p.s;
+    if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+ 
+    const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
+    g.addColorStop(0, `rgba(255, 200, 230, .22)`);
+    g.addColorStop(1, `rgba(255, 200, 230, 0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2); ctx.fill();
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+const dot = document.getElementById('cursorDot');
+const trail = document.getElementById('cursorTrail');
+ 
+if(!isTouch){
+  let tx=0, ty=0, lx=0, ly=0;
+  const follow = ()=>{
+    lx += (tx - lx) * 0.18;
+    ly += (ty - ly) * 0.18;
+    trail.style.transform = `translate(${lx}px, ${ly}px)`;
+    requestAnimationFrame(follow);
+  };
+  follow();
+ 
+  addEventListener('mousemove', e=>{
+    tx = e.clientX; ty = e.clientY;
+    dot.style.opacity = .9; trail.style.opacity = .9;
+    dot.style.transform = `translate(${tx}px, ${ty}px)`;
+  });
+  addEventListener('mouseleave', ()=>{
+    dot.style.opacity = 0; trail.style.opacity = 0;
+  });
+}
+
+menuMobile.addEventListener('transitionstart', ()=> document.body.style.scrollBehavior='auto');
+menuMobile.addEventListener('transitionend', ()=> document.body.style.scrollBehavior='smooth');
+ 
+</script>
+</body>
+</html>
+ 
+ 
